@@ -37,10 +37,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# sqlite — commit simple_church.db for Render free tier; ignore WAL sidecar files
-/data/*.db-shm
-/data/*.db-wal
-/data/*.db-journal
+# sqlite
+/data/*.db
+/data/*.db-*
 
 # local ui screenshots
 /.screenshots

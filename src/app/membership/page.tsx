@@ -32,7 +32,7 @@ export default async function MembershipPage({
   } catch (error) {
     console.error(error);
     dbError =
-      "Could not open the SQLite database. Run npm run db:init and check your .env settings.";
+      "Could not connect to the database. On Render, confirm SQLITE_PATH is set and a persistent disk is mounted at /var/data, then run npm run db:init and npm run db:import in the Shell.";
   }
 
   return (
