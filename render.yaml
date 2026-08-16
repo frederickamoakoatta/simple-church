@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cop-ibe
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:render
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SQLITE_PATH
+        value: ./data/simple_church.db

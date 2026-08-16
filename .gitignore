@@ -33,16 +33,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
-.vercel
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# sqlite
-/data/*.db
-/data/*.db-*
+# sqlite — commit simple_church.db for Render free tier; ignore WAL sidecar files
+/data/*.db-shm
+/data/*.db-wal
+/data/*.db-journal
 
 # local ui screenshots
 /.screenshots
