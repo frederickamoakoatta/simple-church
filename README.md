@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# COP - IBE — Member Registry
 
-## Getting Started
+A Next.js app for recording and managing church member biodata, backed by SQLite.
 
-First, run the development server:
+The `members` table matches the columns in your **Membership- IBE Database Nov 2024.xlsx** spreadsheet.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js 18+
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Install dependencies**
 
-## Learn More
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Configure the database path (optional)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cp .env.example .env
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Default SQLite file: `./data/simple_church.db`
 
-## Deploy on Vercel
+3. **Create the database and table**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run db:init
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Import existing members (optional)**
+
+   ```bash
+   npm run db:import
+   ```
+
+   Or pass a custom file path:
+
+   ```bash
+   npm run db:import -- "/path/to/your/members.xlsx"
+   ```
+
+5. **Start the dev server**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000).
+
+## Features
+
+- Add, edit, and delete member records
+- Search members by name, phone, or email
+- Paginated membership list
+- Stepwise member form (Personal, Contact, Family, Spiritual)
+
+## Database schema
+
+See [`db/schema.sql`](db/schema.sql) for the full `members` table definition.
+
+Note: the spreadsheet has a duplicate **Firstname** column (mostly spouse names). It is stored as `spouse_firstname` in the database.
+
+## API
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/api/members` | List members (`?search=` and `?page=` optional) |
+| POST | `/api/members` | Create a member |
+| GET | `/api/members/:id` | Get one member |
+| PUT | `/api/members/:id` | Update a member |
+| DELETE | `/api/members/:id` | Delete a member |
